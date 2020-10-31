@@ -7,7 +7,7 @@ Simple debug menu for teardown game version 0.1
 
 ## How to install?
 
-1. Unpack .rar file
+1. Unpack .zip file
 2. Go to Teardown Game Folder Teardown\data\ui
 3. Make backup of hud.lua
 4. put 2 files into that folder.
