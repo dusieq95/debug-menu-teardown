@@ -8,7 +8,6 @@
 function init()
 	sFrame = 0
 	sPlayFrame = 0
-	MouseButton = false
 
 	gPaused = false
 	gPauseHeight = 500
@@ -234,7 +233,7 @@ function drawTool()
 						local a = GetFloat("game.tool."..t..".ammo")
 						a = math.floor(a*10)/10
 						UiText(a)
-					elseif t~="sledge" and t ~= "spraycan" and t ~= "extinguisher" then
+					elseif t~="wooden axe" and t ~= "spraycan" and t ~= "extinguisher" then
 						local a = GetInt("game.tool."..t..".ammo")
 						UiText(a)
 					end
@@ -284,7 +283,6 @@ function crosshair()
 		end
 	UiPop()
 end
-
 
 
 function drawPickInfo()
@@ -1648,9 +1646,6 @@ function tick()
 			SetInt("game.tool."..tools[i]..".ammo", 99)
 		end
 	end
-
-	MouseButton = UiIsMousePressed()
-	
 end
 
 
@@ -1738,6 +1733,7 @@ function flyover()
 	SetCameraTransform(Transform(eyePos, QuatLookAt(eyePos, targetPos)))
 end
 
+
 function drawEndRun()
 	local arrow = FindLocation("endarrow", true)
 	local pos = GetLocationTransform(arrow).pos
@@ -1751,14 +1747,30 @@ function drawEndRun()
 	end
 end
 
+function drawPlayerPos()
+	local val = GetInt("options.gfx.debug")
+	if val == 1 then
+		UiPush()
+		UiColor(0, 0, 0, 0.5)
+		UiRect(UiWidth()/5, UiHeight()/3.5)
+		--UiTranslate(0, UiHeight()-400)
+		UiFont("font/bold.ttf", 26)
+		--UiTextOutline(0,0,0,1, 0.1)
+		UiColor(0.8, 0.8, 0.8, 1.0)
+		UiTranslate(30, 30)
+		UiText(string.format("Player Position: x: %s y: %s z: %s", math.floor(GetPlayerPos()[1]), math.floor(GetPlayerPos()[2]), math.floor(GetPlayerPos()[3])))--math.floor(VecLength(GetPlayerPos()[1])))
+		UiTranslate(0, 30)
+		UiText()
+		UiPop()
+	end
+end
 
 function draw()
+	DebugMenuUI()
 	if gAboutMode then
 		drawAbout()
 		return
 	end
-
-	DebugMenuUI()
 
 	UiButtonHoverColor(0.8,0.8,0.8,1)
 
