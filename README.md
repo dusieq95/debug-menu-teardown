@@ -13,5 +13,5 @@ Simple debug menu for teardown game version 0.2
 4. put 3 files into that folder.
 
 ## In-Game 
-![alt text](https://i.imgur.com/EcR6GXm.png)
+![alt text](https://i.imgur.com/hjutGHf.png)
 
