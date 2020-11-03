@@ -1,5 +1,5 @@
-# debug-menu-teardown
-Simple debug menu for teardown game version 0.2
+# debug-menu-teardown-for-experimental-version-of-the-game
+Simple debug menu for teardown game version 0.2.1
 
 
 ###### Authors: _dusieq#0404 and Forgenet#1928 (Discord)
