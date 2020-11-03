@@ -25,6 +25,30 @@ function optionsInputDesc(op, key, x1)
 	UiTranslate(0, UiFontHeight())
 end
 
+function toolTip(desc)
+	local showDesc = false
+	UiPush()
+		UiAlign("top left")
+		UiTranslate(-265, -23)
+		if UiIsMouseInRect(550, 27) then
+			showDesc = true
+		end
+	UiPop()
+	if showDesc then
+		UiPush()
+			UiTranslate(340, -50)
+			UiFont("font/regular.ttf", 20)
+			UiAlign("left")
+			UiWordWrap(300)
+			UiColor(0, 0, 0, 0.5)
+			local w,h = UiGetTextSize(desc)
+			UiImageBox("common/box-solid-6.png", w+40, h+40, 6, 6)
+			UiColor(.8, .8, .8)
+			UiTranslate(20, 37)
+			UiText(desc)
+		UiPop()
+	end
+end
 
 function drawOptions(scale, allowDisplayChanges)
 	if scale == 0.0 then
@@ -120,16 +144,19 @@ function drawOptions(scale, allowDisplayChanges)
 					UiText("Mode")
 					UiAlign("left")
 					UiTranslate(x1,0)
+					toolTip("Play Teardown in fullscreen mode. Teardown currently works best at 60 Hz refresh rate so that will automatically be chosen if supported by your monitor. This is the recommended setting on most systems.")
 					if displayMode == 0 then UiColor(1,1,0.7) else UiColor(1,1,1) end
 					if UiTextButton("Fullscreen") then
 						SetInt("options.display.mode", 0)
 					end
 					UiTranslate(0, lh)
+					toolTip("Play Teardown in windowed mode")
 					if displayMode == 1 then UiColor(1,1,0.7) else UiColor(1,1,1) end
 					if UiTextButton("Window") then
 						SetInt("options.display.mode", 1)
 					end
 					UiTranslate(0, lh)
+					toolTip("Play Teardown in fullscreen, borderless windowed mode using the same resolution and refresh rate as your desktop. On some systems, this can yield better performance.")
 					if displayMode == 2 then UiColor(1,1,0.7) else UiColor(1,1,1) end
 					if UiTextButton("Borderless window") then
 						SetInt("options.display.mode", 2)
@@ -172,6 +199,7 @@ function drawOptions(scale, allowDisplayChanges)
 
 			if optionsTab == "gfx" then
 				UiPush()
+					toolTip("Scale the resolution by this amount when rendering the game. Text overlays will still show in full resolution. Lowering this setting will dramatically increase performance on most systems.")
 					UiText("Render scale")
 					UiTranslate(x1, 0)
 					UiAlign("left")
@@ -194,6 +222,7 @@ function drawOptions(scale, allowDisplayChanges)
 				UiTranslate(0, lh)
 				
 				UiPush()
+					toolTip("This setting affects the way shadows, reflections and denoising are rendered and affects the performance on most systems.")
 					UiText("Render quality")
 					UiTranslate(x1, 0)
 					UiAlign("left")
@@ -292,6 +321,7 @@ function drawOptions(scale, allowDisplayChanges)
 				UiTranslate(0, 20)
 
 				UiPush()
+					toolTip("Teardown is designed to be played with verticial sync enabled. We strongly recommend using \"Every frame\" and a 60 Hz monitor refresh rate for the smoothest experience. Disabling vertical sync can sometimes cause choppy camera motion.")
 					UiText("Vertical sync")
 					UiTranslate(x1, 0)
 					UiAlign("left")
@@ -330,7 +360,11 @@ function drawOptions(scale, allowDisplayChanges)
 					end
 				UiPop()
 				UiTranslate(0, lh)
+
 			end
+
+			
+			
 			
 			if optionsTab == "audio" then
 				UiPush()
@@ -394,6 +428,7 @@ function drawOptions(scale, allowDisplayChanges)
 				UiTranslate(0, lh)
 
 				UiPush()
+					toolTip("Scale the head bobbing and leaning effect. Try lowering this if you experience nausea or dizziness when playing the game.")
 					UiText("Head bob")
 					UiTranslate(x1, 0)
 					UiAlign("left")
@@ -414,7 +449,8 @@ function drawOptions(scale, allowDisplayChanges)
 				optionsInputDesc("Map", "Tab", x1)
 				optionsInputDesc("Pause", "Esc", x1)
 				UiTranslate(0, 20)
-				optionsInputDesc("Move", "A S D W", x1)
+				local movement = GetString("game.input.up").." "..GetString("game.input.left").." "..GetString("game.input.down").." "..GetString("game.input.right")
+				optionsInputDesc("Move", movement, x1)
 				optionsInputDesc("Jump", "Spacebar", x1)
 				optionsInputDesc("Crouch", "Ctrl", x1)
 				optionsInputDesc("Interact", "E", x1)

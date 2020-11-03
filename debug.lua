@@ -40,7 +40,7 @@ function DebugMenuUI()
             UiTranslate(0, 39)
         end
 
-        --Tittle
+        --Title
         UiFont("font/bold.ttf", 30)
         UiColor(1, 1, 1)
         UiText("Debug Menu")
@@ -48,7 +48,7 @@ function DebugMenuUI()
 
         --Debuger Version
         UiFont("font/regular.ttf", 24)
-        UiText("Version 0.2")
+        UiText("Version 0.2.1")
         UiTranslate(0, 25)
         UiText("-----------------------")
         UiFont("font/regular.ttf", 22)
@@ -85,6 +85,16 @@ function DebugMenuUI()
         --PlayerHealth
         UiTranslate(0, 22)
         UiText(string.format("Health: %g", GetString("game.player.health")))
+
+        --UiTranslate(0, 22)
+        --UiText(string.format("Level Path: %s", GetString("game.levelpath")))
+
+        --UiTranslate(0, 22)
+        --UiText(string.format("Test String: %s", GetString("")))
+        --UiText(string.format("Player Position: x: %s", tostring(VecLength(GetPlayerPos()[1])))
+
+
+
         UiPop()
     end
 end

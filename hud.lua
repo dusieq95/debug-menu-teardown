@@ -233,7 +233,7 @@ function drawTool()
 						local a = GetFloat("game.tool."..t..".ammo")
 						a = math.floor(a*10)/10
 						UiText(a)
-					elseif t~="wooden axe" and t ~= "spraycan" and t ~= "extinguisher" then
+					elseif t~="sledge" and t ~= "spraycan" and t ~= "extinguisher" then
 						local a = GetInt("game.tool."..t..".ammo")
 						UiText(a)
 					end
@@ -730,8 +730,9 @@ function drawVehicle()
 	UiPop()
 
 	local vehicle = GetPlayerVehicle()
+	local movement = GetString("game.input.up").." "..GetString("game.input.left").." "..GetString("game.input.down").." "..GetString("game.input.right")
 	local info = {}
-	info[#info+1] = {"W A S D", "Drive"}
+	info[#info+1] = {movement, "Drive"}
 	if HasTag(vehicle, "crane") then
 		info[#info+1] = {"LMB RMB", "Arm"}
 		info[#info+1] = {"SPACE", "Hook"}
@@ -1148,6 +1149,10 @@ end
 function drawCash()
 	local currentCash = GetInt("savegame.cash")
 	if currentCash > 0 then
+		if gCashDisplay > currentCash then
+			--Bugfix for cash display out of sync
+			gCashDisplay = currentCash
+		end
 		if currentCash > gCashDisplay then
 			if gCashScale == 0 then
 				SetValue("gCashScale", 1, "easeout", 1)
@@ -1747,23 +1752,6 @@ function drawEndRun()
 	end
 end
 
-function drawPlayerPos()
-	local val = GetInt("options.gfx.debug")
-	if val == 1 then
-		UiPush()
-		UiColor(0, 0, 0, 0.5)
-		UiRect(UiWidth()/5, UiHeight()/3.5)
-		--UiTranslate(0, UiHeight()-400)
-		UiFont("font/bold.ttf", 26)
-		--UiTextOutline(0,0,0,1, 0.1)
-		UiColor(0.8, 0.8, 0.8, 1.0)
-		UiTranslate(30, 30)
-		UiText(string.format("Player Position: x: %s y: %s z: %s", math.floor(GetPlayerPos()[1]), math.floor(GetPlayerPos()[2]), math.floor(GetPlayerPos()[3])))--math.floor(VecLength(GetPlayerPos()[1])))
-		UiTranslate(0, 30)
-		UiText()
-		UiPop()
-	end
-end
 
 function draw()
 	DebugMenuUI()
